@@ -7,7 +7,7 @@ const run = (inputFileNames, options, outputFileName) => new Promise(r => {
   cmd.on('progress', progress => {
     process.stdout.clearLine(0)
     process.stdout.cursorTo(0)
-    process.stdout.write(`[FFmpeg] ${progress.timemark}  ${progress.percent.toFixed(1)}%`)
+    process.stdout.write(`[FFmpeg] ${progress?.timemark}  ${progress?.percent?.toFixed(1)}%`)
   })
   cmd.on('end', () => {
     process.stdout.write('\n')
@@ -22,16 +22,16 @@ export function extractAudio (videoFileName, outputFileName) {
   return run([videoFileName], ['-q:a 0', '-map a'], outputFileName)
 }
 
-// ffmpeg -i input.mp3 -af "highpass=200,lowpass=3000,afftdn" output.mp3
+// ffmpeg -i input.mp3 -af "highpass=50,lowpass=10000,afftdn" output.mp3
 export function denoiseAudio (audioFileName, outputFileName) {
   console.log('[FFmpeg] Denoising audio')
-  return run([audioFileName], ['-af highpass=200,lowpass=3000,afftdn=nf=-25'], outputFileName)
+  return run([audioFileName], ['-af highpass=50,lowpass=10000,afftdn'], outputFileName)
 }
 
-// ffmpeg -i input.mp3 -af loudnorm output.mp3
+// ffmpeg -i input.mp3 -af loudnorm=I=-15:LRA=7:tp=-2 output.mp3
 export function normalizeAudio (audioFileName, outputFileName) {
-  console.log('[FFmpeg] Denoising audio')
-  return run([audioFileName], ['-af loudnorm'], outputFileName)
+  console.log('[FFmpeg] Normalizing audio')
+  return run([audioFileName], ['-af loudnorm=I=-15:LRA=7:tp=-2'], outputFileName)
 }
 
 // ffmpeg -i input.mp4 -i input.mp3 -c:v copy -map 0:v:0 -map 1:a:0 output.mp4
