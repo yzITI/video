@@ -23,3 +23,10 @@ export default {
   }
 }
 ```
+
+Create temporary directory `/data` at the root level, and put your mp4 video file into it. Then modify the file names in `index.js` accordingly, as well as the prompting for speech-to-text.
+
+Run the workflow:
+```
+node .
+```
