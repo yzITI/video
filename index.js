@@ -3,10 +3,10 @@ import { extractAudio, replaceAudio, denoiseAudio, normalizeAudio } from './medi
 
 const prompt = ''
 
-const videoFileName = './data/input.mp4'
-const audioFileName = './data/audio.mp3'
-const outputFileName = './data/output.mp4'
-const subtitleFileName = './data/subtitle.srt'
+const videoFileName = '../Raw/video.mp4'
+const audioFileName = '../Raw/audio.mp3'
+const outputFileName = '../Raw/output.mp4'
+const subtitleFileName = '../Raw/subtitle.srt'
 
 async function main () {
   await extractAudio(videoFileName, audioFileName)
