@@ -11,7 +11,7 @@ export async function transcribe (fileName, prompt = '', outputFileName) {
     file: fs.createReadStream(fileName),
     model: 'whisper-1',
     response_format: 'verbose_json',
-    timestamp_granularities: ['word', 'segment'],
+    timestamp_granularities: ['segment'], // 'word' does not work well
     prompt
   })
   const nodes = res.segments.map(s => ({

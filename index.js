@@ -10,8 +10,8 @@ const subtitleFileName = '../Raw/subtitle.srt'
 
 async function main () {
   await extractAudio(videoFileName, audioFileName)
-  await denoiseAudio(audioFileName, './data/temp.mp3')
-  await normalizeAudio('./data/temp.mp3', audioFileName)
+  await denoiseAudio(audioFileName, './temp.mp3')
+  await normalizeAudio('./temp.mp3', audioFileName)
   let promise = null
   try {
     promise = transcribe(audioFileName, prompt, subtitleFileName)
