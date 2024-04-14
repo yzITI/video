@@ -12,7 +12,7 @@
   "type": "module",
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
-    "openai": "^4.29.1",
+    "openai": "^4.33.1",
     "subtitle": "^4.2.1"
   }
 }

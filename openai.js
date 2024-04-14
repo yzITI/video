@@ -5,7 +5,7 @@ import OpenAI from 'openai'
 
 const openai = new OpenAI(config.openai)
 
-export async function transcribe (fileName, prompt = '', outputFileName) {
+export async function transcribe (fileName, outputFileName, prompt = '') {
   console.log('[OpenAI] Transcribing')
   const res = await openai.audio.transcriptions.create({
     file: fs.createReadStream(fileName),
@@ -22,4 +22,15 @@ export async function transcribe (fileName, prompt = '', outputFileName) {
   if (outputFileName) fs.writeFileSync(outputFileName, srt)
   console.log('[OpenAI] Transcription Complete')
   return srt
+}
+
+export async function analyze (fileName, outputFileName, prompt = '') {
+  console.log('[OpenAI] Analyzing')
+  const input = fs.readFileSync(fileName).toString()
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'user', content: `Find transcribing mistakes in the subtitle file. Be sensitive and careful. A list of concepts: ${prompt}. Only output the suspicious keywords and their context:\n\n${input}` }],
+    model: 'gpt-4-turbo',
+  })
+  fs.writeFileSync(outputFileName, completion.choices[0].message.content)
+  console.log(`[OpenAI] Analyzing Complete. Token Usage: ${completion.usage.prompt_tokens} + ${completion.usage.completion_tokens}`)
 }
