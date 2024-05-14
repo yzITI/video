@@ -29,7 +29,7 @@ export async function analyze (fileName, outputFileName, prompt = '') {
   const input = fs.readFileSync(fileName).toString()
   const completion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: `Find transcribing mistakes in the subtitle file. Be sensitive and careful. A list of concepts: ${prompt}. Only output the suspicious keywords and their context:\n\n${input}` }],
-    model: 'gpt-4-turbo',
+    model: 'gpt-4o',
   })
   fs.writeFileSync(outputFileName, completion.choices[0].message.content)
   console.log(`[OpenAI] Analyzing Complete. Token Usage: ${completion.usage.prompt_tokens} + ${completion.usage.completion_tokens}`)
