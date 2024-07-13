@@ -1,7 +1,5 @@
 import { extractAudio, replaceAudio, denoiseAudio, normalizeAudio } from './media.js'
 
-const prompt = ``
-
 const videoFileName = '../Raw/video.mp4'
 const audioFileName = '../Raw/audio.mp3'
 const outputFileName = '../Raw/output.mp4'
